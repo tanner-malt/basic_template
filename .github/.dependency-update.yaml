@@ -1,0 +1,26 @@
+name: Auto Install Depenendencies
+
+on: [push, pull_request]
+
+
+env:
+  PIPENV_VENV_IN_PROJECT: true
+  AUTOTHROTTLE_MAX_DELAY: 30.0
+  AUTOTHROTTLE_START_DELAY: 1.5
+  AUTOTHROTTLE_TARGET_CONCURRENCY: 3.0
+
+  
+jobs:
+  install-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.13"
+        
+      - name: Install dependencies
+        run: pip install -r requirements.txt
